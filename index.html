@@ -1,58 +1,734 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surevitha Foundation</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Surevitha Foundation – Empowering Communities to Save Lives</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #1a3c8f;
+    --orange: #f47c20;
+    --green: #2eac6d;
+    --light: #f5f8ff;
+    --dark: #0d1b40;
+    --grey: #6b7a99;
+    --white: #ffffff;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--dark);
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5vw;
+    height: 72px;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(26,60,143,.08);
+    box-shadow: 0 2px 24px rgba(26,60,143,.06);
+  }
+
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-logo img { height: 44px; }
+
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    text-decoration: none; font-size: 0.9rem; font-weight: 500;
+    color: var(--dark); letter-spacing: .02em;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--orange); }
+
+  .nav-cta {
+    background: var(--orange); color: var(--white);
+    border: none; border-radius: 6px;
+    padding: 10px 22px; font-size: 0.88rem; font-weight: 600;
+    cursor: pointer; text-decoration: none;
+    transition: background .2s, transform .15s;
+  }
+  .nav-cta:hover { background: #d9660f; transform: translateY(-1px); }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 120px 5vw 80px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f0f5ff 0%, #fff8f2 100%);
+  }
+
+  #hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231a3c8f' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  .hero-text { position: relative; }
+
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(26,60,143,.08);
+    color: var(--blue); border-radius: 100px;
+    padding: 6px 16px; font-size: 0.78rem; font-weight: 600;
+    letter-spacing: .08em; text-transform: uppercase;
+    margin-bottom: 24px;
+    animation: fadeUp .6s ease both;
+  }
+
+  .hero-tag span { width: 6px; height: 6px; border-radius: 50%; background: var(--orange); display: inline-block; }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    line-height: 1.12;
+    color: var(--dark);
+    margin-bottom: 24px;
+    animation: fadeUp .7s .1s ease both;
+  }
+
+  h1 em { color: var(--orange); font-style: normal; }
+
+  .hero-sub {
+    font-size: 1.05rem; color: var(--grey); line-height: 1.7;
+    max-width: 480px; margin-bottom: 40px;
+    animation: fadeUp .7s .2s ease both;
+  }
+
+  .hero-btns {
+    display: flex; gap: 14px; flex-wrap: wrap;
+    animation: fadeUp .7s .3s ease both;
+  }
+
+  .btn-primary {
+    background: var(--blue); color: #fff;
+    padding: 14px 28px; border-radius: 8px;
+    font-weight: 600; font-size: 0.95rem;
+    text-decoration: none; transition: background .2s, transform .15s;
+  }
+  .btn-primary:hover { background: var(--dark); transform: translateY(-2px); }
+
+  .btn-outline {
+    border: 2px solid var(--blue); color: var(--blue);
+    padding: 13px 28px; border-radius: 8px;
+    font-weight: 600; font-size: 0.95rem;
+    text-decoration: none; transition: all .2s;
+  }
+  .btn-outline:hover { background: var(--blue); color: #fff; }
+
+  .hero-stats {
+    display: flex; gap: 36px; margin-top: 52px;
+    animation: fadeUp .7s .4s ease both;
+  }
+
+  .stat-item { border-left: 3px solid var(--orange); padding-left: 14px; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; color: var(--blue); line-height: 1; }
+  .stat-label { font-size: 0.78rem; color: var(--grey); font-weight: 500; margin-top: 4px; }
+
+  /* hero visual */
+  .hero-visual {
+    display: flex; justify-content: center; align-items: center;
+    position: relative;
+    animation: fadeUp .8s .2s ease both;
+  }
+
+  .hero-logo-wrap {
+    width: 360px; height: 360px;
+    background: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 20px 80px rgba(26,60,143,.14), 0 0 0 1px rgba(26,60,143,.06);
+    position: relative;
+    animation: float 4s ease-in-out infinite;
+  }
+
+  .hero-logo-wrap img { width: 78%; }
+
+  .pulse-ring {
+    position: absolute; border-radius: 50%;
+    border: 2px solid rgba(244,124,32,.3);
+    animation: pulse 2.5s ease-out infinite;
+  }
+  .pulse-ring:nth-child(1) { width: 100%; height: 100%; animation-delay: 0s; }
+  .pulse-ring:nth-child(2) { width: 115%; height: 115%; animation-delay: .8s; }
+  .pulse-ring:nth-child(3) { width: 130%; height: 130%; animation-delay: 1.6s; }
+
+  /* floating badges */
+  .badge {
+    position: absolute;
+    background: white;
+    border-radius: 12px;
+    padding: 10px 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,.10);
+    font-size: 0.82rem; font-weight: 600;
+    display: flex; align-items: center; gap: 8px;
+    white-space: nowrap;
+  }
+  .badge .dot { width: 8px; height: 8px; border-radius: 50%; }
+  .badge-1 { top: 30px; right: -20px; }
+  .badge-2 { bottom: 60px; left: -30px; }
+  .badge-3 { bottom: 30px; right: -10px; font-size: 0.76rem; }
+
+  /* ─── SECTIONS SHARED ─── */
+  section { padding: 90px 5vw; }
+  .section-tag {
+    font-size: 0.75rem; font-weight: 700; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--orange);
+    margin-bottom: 12px;
+  }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    line-height: 1.2; color: var(--dark); margin-bottom: 16px;
+  }
+  h2 em { color: var(--orange); font-style: normal; }
+  .section-sub { color: var(--grey); font-size: 1rem; line-height: 1.7; max-width: 560px; }
+
+  /* ─── ABOUT ─── */
+  #about {
+    background: var(--white);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  }
+
+  .about-visual {
+    position: relative;
+  }
+
+  .about-card {
+    background: var(--light);
+    border-radius: 20px;
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: linear-gradient(to bottom, var(--orange), var(--blue));
+  }
+
+  .about-card blockquote {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; line-height: 1.5;
+    color: var(--dark); font-style: italic;
+    margin-bottom: 20px;
+  }
+
+  .about-float {
+    position: absolute; bottom: -20px; right: -20px;
+    background: var(--blue); color: white;
+    border-radius: 16px; padding: 20px 24px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(26,60,143,.25);
+  }
+  .about-float .num { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 900; line-height: 1; }
+  .about-float .lbl { font-size: 0.72rem; opacity: .8; margin-top: 4px; }
+
+  .about-text p { color: var(--grey); line-height: 1.8; margin-bottom: 16px; }
+
+  .mission-vision { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 32px; }
+
+  .mv-card {
+    background: var(--light); border-radius: 12px; padding: 24px;
+    border-top: 3px solid var(--orange);
+  }
+  .mv-card:last-child { border-top-color: var(--blue); }
+  .mv-card h4 { font-family: 'Playfair Display', serif; font-size: 1rem; margin-bottom: 8px; color: var(--dark); }
+  .mv-card p { font-size: 0.88rem; color: var(--grey); line-height: 1.6; }
+
+  /* ─── PROGRAMS ─── */
+  #programs { background: var(--dark); color: white; }
+  #programs h2 { color: white; }
+  #programs .section-sub { color: rgba(255,255,255,.6); }
+
+  .programs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px; margin-top: 52px;
+  }
+
+  .program-card {
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 16px; padding: 32px;
+    transition: background .25s, transform .2s;
+    position: relative; overflow: hidden;
+  }
+  .program-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--orange), var(--green));
+    opacity: 0; transition: opacity .25s;
+  }
+  .program-card:hover { background: rgba(255,255,255,.09); transform: translateY(-4px); }
+  .program-card:hover::before { opacity: 1; }
+
+  .prog-icon {
+    width: 52px; height: 52px; border-radius: 12px;
+    background: rgba(244,124,32,.15);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem; margin-bottom: 20px;
+  }
+
+  .program-card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 10px; color: white; }
+  .program-card p { font-size: 0.88rem; color: rgba(255,255,255,.55); line-height: 1.65; }
+
+  /* ─── IMPACT ─── */
+  #impact { background: linear-gradient(135deg, #f0f5ff 0%, #fff8f2 100%); }
+
+  .impact-nums {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 2px; background: rgba(26,60,143,.1);
+    border-radius: 20px; overflow: hidden;
+    margin: 52px 0;
+  }
+
+  .impact-box {
+    background: white;
+    padding: 40px 20px; text-align: center;
+  }
+
+  .impact-box .big {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem; font-weight: 900;
+    color: var(--blue); line-height: 1;
+    margin-bottom: 10px;
+  }
+  .impact-box .big span { color: var(--orange); }
+  .impact-box .label { font-size: 0.82rem; color: var(--grey); font-weight: 500; }
+
+  .impact-desc {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 20px;
+  }
+
+  .impact-item {
+    display: flex; align-items: flex-start; gap: 16px;
+    background: white; border-radius: 14px; padding: 24px;
+    box-shadow: 0 2px 20px rgba(26,60,143,.06);
+  }
+  .impact-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    background: rgba(26,60,143,.08);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; flex-shrink: 0;
+  }
+  .impact-item h4 { font-size: 0.95rem; font-weight: 600; color: var(--dark); margin-bottom: 6px; }
+  .impact-item p { font-size: 0.85rem; color: var(--grey); line-height: 1.55; }
+
+  /* ─── APPROACH ─── */
+  #approach { background: white; }
+
+  .approach-steps {
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: 0; margin-top: 52px; position: relative;
+  }
+
+  .approach-steps::before {
+    content: '';
+    position: absolute;
+    top: 32px; left: 10%; right: 10%; height: 2px;
+    background: linear-gradient(90deg, var(--orange), var(--blue));
+    z-index: 0;
+  }
+
+  .step {
+    text-align: center; position: relative; z-index: 1;
+    padding: 0 12px;
+  }
+
+  .step-num {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: white; border: 3px solid var(--orange);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 900; color: var(--orange);
+    margin: 0 auto 20px;
+    box-shadow: 0 4px 20px rgba(244,124,32,.2);
+    transition: background .2s, color .2s;
+  }
+  .step:hover .step-num { background: var(--orange); color: white; }
+
+  .step h4 { font-size: 0.9rem; font-weight: 600; color: var(--dark); margin-bottom: 8px; }
+  .step p { font-size: 0.8rem; color: var(--grey); line-height: 1.55; }
+
+  /* ─── PARTNER ─── */
+  #partner {
+    background: var(--blue);
+    color: white; text-align: center;
+    padding: 100px 5vw;
+  }
+  #partner h2 { color: white; margin-bottom: 16px; }
+  #partner p { color: rgba(255,255,255,.7); max-width: 560px; margin: 0 auto 48px; font-size: 1rem; line-height: 1.7; }
+
+  .partner-options {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 20px; max-width: 900px; margin: 0 auto 52px;
+  }
+
+  .partner-box {
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 14px; padding: 24px 16px;
+    font-size: 0.88rem; font-weight: 500;
+    transition: background .2s;
+  }
+  .partner-box:hover { background: rgba(255,255,255,.15); }
+  .partner-box .icon { font-size: 1.8rem; margin-bottom: 12px; }
+
+  .contact-row {
+    display: flex; align-items: center; justify-content: center; gap: 40px;
+    flex-wrap: wrap; margin-top: 40px;
+  }
+
+  .contact-item { display: flex; align-items: center; gap: 10px; font-size: 1rem; }
+  .contact-item a { color: white; text-decoration: none; font-weight: 500; }
+  .contact-item a:hover { color: var(--orange); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--dark); color: rgba(255,255,255,.5);
+    text-align: center; padding: 28px 5vw;
+    font-size: 0.85rem;
+  }
+  footer strong { color: white; }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-14px); }
+  }
+
+  @keyframes pulse {
+    0% { opacity: .7; transform: scale(1); }
+    100% { opacity: 0; transform: scale(1.4); }
+  }
+
+  /* ─── MOBILE ─── */
+  @media (max-width: 900px) {
+    #hero { grid-template-columns: 1fr; padding-top: 100px; text-align: center; }
+    .hero-sub { margin: 0 auto 32px; }
+    .hero-btns { justify-content: center; }
+    .hero-stats { justify-content: center; }
+    .hero-visual { display: none; }
+    #about { grid-template-columns: 1fr; gap: 40px; }
+    .impact-nums { grid-template-columns: repeat(2, 1fr); }
+    .approach-steps { grid-template-columns: 1fr; }
+    .approach-steps::before { display: none; }
+    .partner-options { grid-template-columns: repeat(2, 1fr); }
+    .nav-links { display: none; }
+    .impact-desc { grid-template-columns: 1fr; }
+  }
+</style>
 </head>
 <body>
 
-<header>
-  <h1>Surevitha Foundation</h1>
-<p>Empowering Lives Through Better Health</p>
-</header>
-
+<!-- NAV -->
 <nav>
-    <a href="#about">About</a>
-    <a href="#work">Our Work</a>
-    <a href="#contact">Contact</a>
+  <a class="nav-logo" href="#hero">
+    <img src="/mnt/user-data/uploads/ChatGPT_Image_Mar_11__2026__10_42_32_PM.png" alt="Surevitha Foundation Logo">
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#programs">Programs</a></li>
+    <li><a href="#impact">Impact</a></li>
+    <li><a href="#approach">Approach</a></li>
+    <li><a href="#partner">Partner</a></li>
+  </ul>
+  <a href="#partner" class="nav-cta">Partner With Us</a>
 </nav>
 
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-text">
+    <div class="hero-tag"><span></span> Preventive Healthcare NGO</div>
+    <h1>Early Detection<br>is the Most Powerful<br>Tool to <em>Save Lives</em></h1>
+    <p class="hero-sub">Surevitha Foundation screens underserved communities across India — enabling early cancer detection, health awareness, and life-saving interventions at the grassroots.</p>
+    <div class="hero-btns">
+      <a href="#partner" class="btn-primary">Partner With Us</a>
+      <a href="#programs" class="btn-outline">Our Programs</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">1L+</div>
+        <div class="stat-label">Mission Target<br>People to Screen</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">80+</div>
+        <div class="stat-label">Camps<br>Annually</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">8K+</div>
+        <div class="stat-label">Lives Impacted<br>Every Year</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-logo-wrap">
+      <div class="pulse-ring"></div>
+      <div class="pulse-ring"></div>
+      <div class="pulse-ring"></div>
+      <img src="/mnt/user-data/uploads/ChatGPT_Image_Mar_11__2026__10_42_32_PM.png" alt="Surevitha Foundation">
+    </div>
+    <div class="badge badge-1">
+      <div class="dot" style="background:var(--green)"></div>
+      <span>AI-Powered Screening</span>
+    </div>
+    <div class="badge badge-2">
+      <div class="dot" style="background:var(--orange)"></div>
+      <span>100+ per Camp</span>
+    </div>
+    <div class="badge badge-3">
+      <div class="dot" style="background:var(--blue)"></div>
+      <span>CSR-Ready Reporting</span>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
 <section id="about">
-    <h2>About Us</h2>
-    <p><p>✔ Conducted free medical camps in rural areas</p>
-<p>✔ Served 200+ people with free checkups</p>
-<p>✔ Distributed essential medicines</p>
-    </p>
+  <div class="about-visual">
+    <div class="about-card" style="padding-bottom: 60px;">
+      <blockquote>"A world where no life is lost due to lack of awareness, late detection, or limited access to preventive healthcare."</blockquote>
+      <p style="font-size:.88rem; color:var(--grey);">— Our Vision</p>
+      <div class="about-float">
+        <div class="num">60%+</div>
+        <div class="lbl">Breast cancer cases in<br>India detected too late</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-text">
+    <div class="section-tag">About Us</div>
+    <h2>Purpose-Driven.<br><em>Community-First.</em></h2>
+    <p>Surevitha Foundation is a grassroots-level preventive healthcare organization committed to transforming how India approaches early detection and health awareness.</p>
+    <p>In a country where thousands lose their lives due to late diagnosis and lack of awareness, we believe that bridging the gap between communities and healthcare is the most urgent mission of our time.</p>
+    <p>Led by <strong>Suman Velpula</strong>, our team combines on-ground execution expertise with trusted medical partnerships and cutting-edge AI screening tools to create scalable, life-saving impact.</p>
+
+    <div class="mission-vision">
+      <div class="mv-card">
+        <h4>🎯 Our Mission</h4>
+        <p>Screen 100,000 people across underserved communities through awareness, community-based screening, and accessible healthcare programs.</p>
+      </div>
+      <div class="mv-card">
+        <h4>🌐 Our Vision</h4>
+        <p>A world where no life is lost due to lack of awareness, late detection, or limited access to preventive healthcare.</p>
+      </div>
+    </div>
+  </div>
 </section>
 
-<section id="work">
-    <h2>Our Work</h2>
-    <ul>
-        <li>Medical Camps</li>
-        <li>Health Awareness Programs</li>
-        <li>Community Outreach</li>
-    </ul>
+<!-- PROGRAMS -->
+<section id="programs">
+  <div class="section-tag">What We Do</div>
+  <h2>Structured Programs.<br><em>Measurable Lives Saved.</em></h2>
+  <p class="section-sub">We design and execute scalable preventive healthcare programs delivered directly within underserved communities across India.</p>
+
+  <div class="programs-grid">
+    <div class="program-card">
+      <div class="prog-icon">🎗️</div>
+      <h3>Breast Cancer Early Detection</h3>
+      <p>Clinical examination and AI-based screening to detect breast cancer at an early, treatable stage — our flagship program that has identified hundreds of high-risk cases.</p>
+    </div>
+    <div class="program-card">
+      <div class="prog-icon">📢</div>
+      <h3>Community Health Awareness</h3>
+      <p>Mobilizing underserved populations through local networks, educating communities about prevention, symptoms, and the importance of timely screening.</p>
+    </div>
+    <div class="program-card">
+      <div class="prog-icon">❤️</div>
+      <h3>Basic Life Support (BLS) Training</h3>
+      <p>Equipping community members and frontline workers with life-saving skills — CPR, emergency response, and first aid — to act in critical moments.</p>
+    </div>
+    <div class="program-card">
+      <div class="prog-icon">🩺</div>
+      <h3>General Health Screening Camps</h3>
+      <p>Blood pressure, diabetes, and other essential health checks delivered directly to communities that lack access to routine medical care.</p>
+    </div>
+    <div class="program-card">
+      <div class="prog-icon">🔗</div>
+      <h3>Referral & Follow-up Support</h3>
+      <p>High-risk cases don't fall through the cracks. We provide structured referral pathways and follow-up support to ensure early detection leads to timely treatment.</p>
+    </div>
+  </div>
 </section>
 
+<!-- IMPACT -->
 <section id="impact">
-    <h2>Recent Impact</h2>
-    <p>✔ Conducted free medical camp</p>
-    <p>✔ Served 200+ people</p>
-    <p>✔ Distributed free medicines</p>
+  <div style="text-align:center;">
+    <div class="section-tag">Our Impact</div>
+    <h2>Every Number is a <em>Life</em></h2>
+    <p class="section-sub" style="margin: 0 auto;">We are building a preventive healthcare ecosystem that goes beyond one-time camps into sustained, measurable community transformation.</p>
+  </div>
+
+  <div class="impact-nums">
+    <div class="impact-box">
+      <div class="big">100<span>+</span></div>
+      <div class="label">Individuals Screened<br>Per Camp</div>
+    </div>
+    <div class="impact-box">
+      <div class="big">80<span>+</span></div>
+      <div class="label">Camps Conducted<br>Annually</div>
+    </div>
+    <div class="impact-box">
+      <div class="big">8K<span>+</span></div>
+      <div class="label">People Reached<br>Every Year</div>
+    </div>
+    <div class="impact-box">
+      <div class="big">1L<span>+</span></div>
+      <div class="label">Mission Target<br>to Screen</div>
+    </div>
+  </div>
+
+  <div class="impact-desc">
+    <div class="impact-item">
+      <div class="impact-icon">🤖</div>
+      <div>
+        <h4>AI-Powered Accuracy</h4>
+        <p>We leverage cutting-edge AI-based screening tools in partnership with leading healthcare innovators for both accuracy and scale.</p>
+      </div>
+    </div>
+    <div class="impact-item">
+      <div class="impact-icon">🏥</div>
+      <div>
+        <h4>Medical Partnerships</h4>
+        <p>Trusted collaborations with hospitals and healthcare providers ensure clinical quality and reliable referral pathways for high-risk cases.</p>
+      </div>
+    </div>
+    <div class="impact-item">
+      <div class="impact-icon">📊</div>
+      <div>
+        <h4>Transparent CSR Reporting</h4>
+        <p>We deliver data-driven impact reports for all stakeholders — detailed, audit-ready, and aligned with CSR reporting requirements.</p>
+      </div>
+    </div>
+    <div class="impact-item">
+      <div class="impact-icon">🌱</div>
+      <div>
+        <h4>Scalable & Replicable</h4>
+        <p>Our program model is designed to scale across geographies — replicable, cost-effective, and proven on the ground.</p>
+      </div>
+    </div>
+  </div>
 </section>
 
-<section id="contact">
-    <h2>Get Involved</h2>
-    <p>Email: avinash_surevitha@gmail.com</p>
-<p>Phone: +91 9985392205</p>
-<p>Join us as a volunteer or partner to create impact!</p>
+<!-- APPROACH -->
+<section id="approach">
+  <div style="text-align:center; margin-bottom: 20px;">
+    <div class="section-tag">Our Approach</div>
+    <h2>End-to-End.<br><em>From Awareness to Follow-up.</em></h2>
+    <p class="section-sub" style="margin: 0 auto;">Our model is built on collaboration, scalability, and measurable impact — covering every step of the healthcare journey.</p>
+  </div>
+
+  <div class="approach-steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h4>Community Outreach</h4>
+      <p>Mobilizing underserved populations through trusted local networks and awareness drives.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h4>Awareness & Education</h4>
+      <p>Educating communities on prevention, early symptoms, and the power of timely detection.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h4>AI-Based Screening</h4>
+      <p>Clinical examination combined with AI screening tools for accurate, scalable assessment.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h4>Risk Categorization</h4>
+      <p>Stratifying participants into risk groups to prioritize urgent and high-risk cases.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <h4>Referral & Follow-up</h4>
+      <p>Ensuring high-risk cases receive timely treatment through structured referral support.</p>
+    </div>
+  </div>
 </section>
 
+<!-- PARTNER -->
+<section id="partner">
+  <div class="section-tag" style="color: rgba(255,255,255,.6); justify-content: center; display: flex;">Partner With Us</div>
+  <h2>Join Us in Building a <em>Healthier India</em></h2>
+  <p>We invite corporates, institutions, healthcare partners, and individuals to support our mission. Together, we can save lives through awareness and early detection.</p>
+
+  <div class="partner-options">
+    <div class="partner-box">
+      <div class="icon">🏕️</div>
+      Individual Camps
+    </div>
+    <div class="partner-box">
+      <div class="icon">📅</div>
+      Annual Health Programs
+    </div>
+    <div class="partner-box">
+      <div class="icon">👔</div>
+      Employee Wellness
+    </div>
+    <div class="partner-box">
+      <div class="icon">🌾</div>
+      Rural Health Outreach
+    </div>
+  </div>
+
+  <div style="margin-top: 12px;">
+    <a href="mailto:surevithafoundation@gmail.com" class="btn-primary" style="display:inline-block; background: var(--orange); font-size:1rem; padding: 16px 36px;">
+      Get In Touch
+    </a>
+  </div>
+
+  <div class="contact-row">
+    <div class="contact-item">📞 <a href="tel:6300856134">6300856134</a></div>
+    <div class="contact-item">📧 <a href="mailto:surevithafoundation@gmail.com">surevithafoundation@gmail.com</a></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
 <footer>
-    <p>© 2026 Surevitha Foundation</p>
+  <p>© 2026 <strong>Surevitha Foundation</strong>. All rights reserved. &nbsp;|&nbsp; Empowering Communities to Save Lives.</p>
 </footer>
 
+<script>
+  // Intersection Observer for scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.program-card, .impact-box, .impact-item, .step, .mv-card, .partner-box').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity .5s ease, transform .5s ease';
+    observer.observe(el);
+  });
+</script>
 </body>
 </html>
